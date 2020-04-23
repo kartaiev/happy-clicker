@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500&family=Quicksand&display=swap');
+@import "./variables";
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(circle, $purple 0%, $dark-purple 71%);
+  overflow: hidden;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  color: #fff;
+  width: 100%;
+  height: 100vh;
+}
