@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SharedStateService} from '../../services/sharedState.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  name: string;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private sharedService: SharedStateService) {
   }
 
+  ngOnInit() {
+    this.sharedService.sharedName.subscribe(name => this.name = name);
+  }
+
+  getName(name) {
+    this.sharedService.anotherName(name);
+    console.log(this.name);
+  }
 }

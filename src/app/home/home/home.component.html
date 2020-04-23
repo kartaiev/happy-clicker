@@ -1,1 +1,13 @@
-<p>home works!</p>
+<form>
+  <div>
+    <label for="player">Enter Your Name, Player</label>
+    <input
+      [(ngModel)]="name"
+      [ngModelOptions]="{standalone: true}"
+      id="player"
+      type="text">
+  </div>
+  <button (click)="getName(name)">
+    Hey
+  </button>
+</form>

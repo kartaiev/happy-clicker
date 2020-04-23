@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SharedStateService} from './services/sharedState.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'happy-clicker';
   name: string;
   toStart = false;
@@ -19,6 +20,15 @@ export class AppComponent {
   STOP_COUNTDOWN = -5;
   STOP_CLICKS_COUNT = -1;
   DEFAULT_GAME_START = 10;
+
+  constructor(private sharedService: SharedStateService) {
+  }
+
+
+  ngOnInit() {
+    this.sharedService.sharedName.subscribe(name => this.name = name);
+    console.log(this.name);
+  }
 
   mainTitle() {
     if (this.toStart) {
@@ -37,4 +47,5 @@ export class AppComponent {
       return `Welcome to Happy Clicker!`;
     }
   }
+
 }
