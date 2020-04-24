@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   }
 
   getName(name) {
-    this.sharedService.anotherName(name);
+    this.sharedService.getName(name);
     console.log(this.name);
   }
 }

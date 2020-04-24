@@ -13,7 +13,7 @@ main {
     font-size: 4rem;
     text-shadow: 0 0 20px $pink;
     filter: drop-shadow(0 0 5px $pink);
-    margin-top: 5vh;
+    padding-bottom: 8vh;
   }
 
   .wrap {
@@ -23,5 +23,30 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  button {
+    color: #fff;
+    background: rgb(46, 2, 69);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+
+
+    &:hover {
+      background: rgba(46, 2, 69, .7);
+      box-shadow: $shadow;
+    }
+
+    &:active {
+      box-shadow: 0 0 0 $purple;
+    }
+
+    &:disabled {
+      border: 1px solid #999999;
+      background-color: $light-purple;
+      color: #fff;
+      cursor: default;
+      pointer-events: none;
+    }
   }
 }

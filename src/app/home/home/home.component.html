@@ -1,4 +1,4 @@
-<form>
+<form (change)="getName(name)">
   <div>
     <label for="player">Enter Your Name, Player</label>
     <input
@@ -7,7 +7,4 @@
       id="player"
       type="text">
   </div>
-  <button (click)="getName(name)">
-    Hey
-  </button>
 </form>

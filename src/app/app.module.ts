@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {HomeModule} from './home/home.module';
 import {HighscoreModule} from './highscore/highscore.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import {GameModule} from './game/game.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
-    HighscoreModule
+    HighscoreModule,
+    GameModule
   ],
   providers: [],
   bootstrap: [AppComponent]

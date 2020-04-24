@@ -4,7 +4,6 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  min-height: 500px;
   padding-bottom: 10vh;
 
   label {
@@ -21,28 +20,4 @@ form {
     }
   }
 
-  button {
-    color: #fff;
-    background: rgb(46, 2, 69);
-    cursor: pointer;
-    transition: all 0.3s ease-out;
-
-
-    &:hover {
-      background: rgba(46, 2, 69, .7);
-      box-shadow: $shadow;
-    }
-
-    &:active {
-      box-shadow: 0 0 0 $purple;
-    }
-
-    &:disabled {
-      border: 1px solid #999999;
-      background-color: $light-purple;
-      color: #fff;
-      cursor: default;
-      pointer-events: none;
-    }
-  }
 }

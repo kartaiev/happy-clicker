@@ -124,5 +124,6 @@
         }
       }
     }},
-  "defaultProject": "happy-clicker"
+  "defaultProject": "happy-clicker",
+  "assets": ["src/assets"]
 }
