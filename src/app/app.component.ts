@@ -99,7 +99,10 @@ export class AppComponent implements OnInit {
       if (this.seconds === this.sharedService.STOP_COUNTDOWN) {
         clearInterval(this.interval);
         this.interval = undefined;
-        console.log();
+        console.log(this.highscore);
+        console.log(this.clicks);
+        console.log(this.name);
+        console.log(this.scores);
         this.scoresService.recordPlayersHighscore(
           this.clicks,
           this.highscore,

@@ -28,13 +28,14 @@ export class ScoresService {
     return JSON.parse(localStorage.getItem('hard'));
   }
 
+
   getScores(lvl) {
     if (lvl === 'easy' && localStorage.getItem('easy')) {
-      this.getEasyScores();
+      return this.getEasyScores();
     } else if (lvl === 'normal' && localStorage.getItem('normal')) {
-      this.getNormalScores();
+      return this.getNormalScores();
     } else if (lvl === 'hard' && localStorage.getItem('hard')) {
-      this.getHardScores();
+      return this.getHardScores();
     } else {
       return [];
     }
