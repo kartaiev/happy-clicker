@@ -1,15 +1,16 @@
 <app-navbar></app-navbar>
 <main>
 
-  <h1>{{mainTitle()}}</h1>
+  <h1 *ngIf="url !== '/highscore'">{{mainTitle()}}</h1>
 
   <div class="wrap">
     <router-outlet></router-outlet>
     <button
+      *ngIf="url !== '/highscore'"
       (click)="clickIt()"
-      [disabled]="seconds <= sharedService.END_GAME
+      [disabled]="seconds <= 0
       &&
-      seconds > sharedService.STOP_COUNTDOWN"
+      seconds > -5"
     >
 
       {{buttonValue()}}

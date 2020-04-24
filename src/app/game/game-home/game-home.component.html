@@ -2,11 +2,11 @@
 <app-game-countdown
   *ngIf="clicks > 0
   &&
-  seconds > sharedService.STOP_CLICKS_COUNT"
+  seconds > -1"
   [@ShortEnter]="'appear'">
 </app-game-countdown>
 <app-game-score
-  *ngIf="seconds <= sharedService.STOP_CLICKS_COUNT"
+  *ngIf="seconds <= -1"
   [@Enter]="'appear'"
   [clicks]="clicks"
 ></app-game-score>

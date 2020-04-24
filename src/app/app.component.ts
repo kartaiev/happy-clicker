@@ -9,7 +9,7 @@ import {ScoresService} from './services/scores.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'happy-clicker';
+  url: string;
   name: string;
   scores = [];
   clicks: number;
@@ -24,12 +24,29 @@ export class AppComponent implements OnInit {
   ) {
   }
 
+  lvl() {
+    if (this.seconds === this.sharedService.DEFAULT_GAME_START) {
+      return 'easy';
+    }
+    if (this.seconds > this.sharedService.DEFAULT_GAME_START
+      &&
+      this.seconds <= this.sharedService.NORMAL_GAME_START) {
+      return 'normal';
+    }
+    if (this.seconds > this.sharedService.NORMAL_GAME_START
+      &&
+      this.seconds <= this.sharedService.HARD_GAME_START) {
+      return 'hard';
+    }
+  }
+
   ngOnInit() {
-    this.scores = this.scoresService.getScores();
     this.sharedService.sharedName.subscribe(name => this.name = name);
     this.sharedService.sharedLevel.subscribe(level => this.seconds = level);
     this.sharedService.sharedClicks.subscribe(clicks => this.clicks = clicks);
+    this.sharedService.sharedUrl.subscribe(url => this.url = url);
   }
+
 
   start(url) {
     if (this.name) {
@@ -72,6 +89,9 @@ export class AppComponent implements OnInit {
   }
 
   countdown() {
+    const lvl = this.lvl();
+    this.scores = this.scoresService.getScores(lvl);
+    console.log(this.scores);
     this.sharedService.getClicks(1);
     this.interval = setInterval(() => {
       this.seconds--;
@@ -79,13 +99,16 @@ export class AppComponent implements OnInit {
       if (this.seconds === this.sharedService.STOP_COUNTDOWN) {
         clearInterval(this.interval);
         this.interval = undefined;
+        console.log();
         this.scoresService.recordPlayersHighscore(
           this.clicks,
           this.highscore,
           this.name,
-          this.scores
+          this.scores,
+          lvl
         );
-        console.log(this.name);
+        this.scoresService.getHighscores(this.scoresService.getScores(lvl));
+        console.log(this.scores);
       }
     }, 1000);
   }
