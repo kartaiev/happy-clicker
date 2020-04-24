@@ -5,7 +5,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeModule} from './home/home.module';
 import {HighscoreModule} from './highscore/highscore.module';
-import { NavbarComponent } from './navbar/navbar.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NavbarComponent} from './navbar/navbar.component';
 import {GameModule} from './game/game.module';
 
 @NgModule({
@@ -15,6 +16,7 @@ import {GameModule} from './game/game.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HomeModule,
     HighscoreModule,

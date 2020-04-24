@@ -1,14 +1,12 @@
-<form (change)="getLevel(level)">
-  <label for="difficulty">Select Level</label>
-  <div class="select-wrap">
-    <img src="../../../assets/icon.svg" alt="">
-    <select
-      [value]=10
-      [(ngModel)]="level"
-      [ngModelOptions]="{standalone: true}"
-      id="difficulty"
-    >
-      <option *ngFor="let level of levels" [value]="level.value">{{level.name}}</option>
-    </select>
-  </div>
-</form>
+<app-game-level *ngIf="clicks === 0"></app-game-level>
+<app-game-countdown
+  *ngIf="clicks > 0
+  &&
+  seconds > sharedService.STOP_CLICKS_COUNT"
+  [@ShortEnter]="'appear'">
+</app-game-countdown>
+<app-game-score
+  *ngIf="seconds <= sharedService.STOP_CLICKS_COUNT"
+  [@Enter]="'appear'"
+  [clicks]="clicks"
+></app-game-score>

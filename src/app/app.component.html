@@ -5,7 +5,13 @@
 
   <div class="wrap">
     <router-outlet></router-outlet>
-    <button (click)="start('game')">
+    <button
+      (click)="clickIt()"
+      [disabled]="seconds <= sharedService.END_GAME
+      &&
+      seconds > sharedService.STOP_COUNTDOWN"
+    >
+
       {{buttonValue()}}
     </button>
   </div>

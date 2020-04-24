@@ -1,0 +1,25 @@
+@import "../../../variables";
+
+.countdown {
+  border-radius: 5px;
+  background-color: $light-purple;
+  border: 1px solid $pink;
+  padding: 1rem;
+  font-size: 1.7rem;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.3s ease all;
+  line-height: 1;
+  box-shadow: $shadow;
+  margin-bottom: 10vh;;
+
+  span {
+    color: $pink;
+    margin-left: .5rem;
+    font-size: 2rem;
+  }
+}
