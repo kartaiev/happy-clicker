@@ -1,0 +1,21 @@
+@import "../../variables";
+
+nav {
+  min-height: 8vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  a {
+    margin-right: 3%;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+
+    &:hover {
+      text-shadow: 0 0 20px $pink;
+      filter: drop-shadow(0 0 5px $pink);
+    }
+  }
+}

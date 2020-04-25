@@ -1,0 +1,32 @@
+<div class="scores-wrap">
+  <div class="levels">
+    <a (click)="setLvlEasy()">easy</a>
+    <a (click)="setLvlNormal()">normal</a>
+    <a (click)="setLvlHard()">hard</a>
+  </div>
+  <h3>{{level}}</h3>
+  <ng-container *ngIf="level === 'easy'">
+    <ul>
+      <li *ngFor="let highscore of easyHighscores">
+        <span>{{highscore.name}}</span>
+        <span>{{highscore.highscore}}</span>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="level === 'normal'">
+  <ul>
+    <li *ngFor="let highscore of normalHighscores">
+      <span>{{highscore.name}}</span>
+      <span>{{highscore.highscore}}</span>
+    </li>
+  </ul>
+  </ng-container>
+  <ng-container *ngIf="level === 'hard'">
+  <ul>
+    <li *ngFor="let highscore of hardHighscores">
+      <span>{{highscore.name}}</span>
+      <span>{{highscore.highscore}}</span>
+    </li>
+  </ul>
+  </ng-container>
+</div>

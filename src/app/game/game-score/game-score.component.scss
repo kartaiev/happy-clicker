@@ -1,0 +1,29 @@
+@import "../../../variables";
+
+
+.score-wrap {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10vh;
+
+  .score {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: $shadow-inset, $shadow;
+    border: 1px solid $pink;
+    background-color: $dark-purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      color: $pink;
+      font-size: 6rem;
+    }
+  }
+}
+
+

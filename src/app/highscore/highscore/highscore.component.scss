@@ -1,0 +1,53 @@
+@import "../../../variables";
+
+.scores-wrap {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .levels {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5vh;
+
+
+    a {
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+
+      &:hover {
+        text-shadow: 0 0 20px $pink;
+        filter: drop-shadow(0 0 5px $pink);
+      }
+
+      &:active {
+        text-shadow: 0 0 20px $pink;
+        filter: drop-shadow(0 0 5px $pink);
+      }
+    }
+  }
+
+  h3 {
+    margin-top: 5vh;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px $pink;
+    filter: drop-shadow(0 0 5px $pink);
+  }
+
+  ul {
+    list-style: none;
+    min-height: 100%;
+    margin-top: 5vh;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1vh;
+      font-size: 1.2rem;
+    }
+  }
+}

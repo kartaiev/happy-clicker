@@ -49,7 +49,7 @@ export class ScoresService {
     lvl: string,
   ) {
     if (clicks > highscore) {
-      arr.sort((a, b) => b.highscore - a.highscore);
+      arr.sort((a, b) => a.highscore - b.highscore);
       const i = arr.indexOf(
         arr.find((obj) => Object.values(obj).includes(name))
       );
