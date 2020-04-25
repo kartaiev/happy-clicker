@@ -16,23 +16,22 @@ export class HighscoreComponent implements OnInit {
   constructor(private scoresService: ScoresService) {
   }
 
-  setLvlEasy() {
-    this.level = 'easy';
+  setLvlEasy(): void {
+    this.level = this.scoresService.EASY;
     this.easyHighscores = this.scoresService.getEasyScores();
   }
 
-  setLvlNormal() {
-    this.level = 'normal';
+  setLvlNormal(): void {
+    this.level = this.scoresService.NORMAL;
     this.normalHighscores = this.scoresService.getNormalScores();
   }
 
-  setLvlHard() {
-    this.level = 'hard';
+  setLvlHard(): void {
+    this.level = this.scoresService.HARD;
     this.hardHighscores = this.scoresService.getHardScores();
   }
 
   ngOnInit(): void {
     this.setLvlEasy();
-    console.log(this.normalHighscores);
   }
 }

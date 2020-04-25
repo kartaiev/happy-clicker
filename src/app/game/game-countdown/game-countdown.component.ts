@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SharedStateService} from '../../services/sharedState.service';
+import {SharedStateService} from '../../services/shared-state.service';
 
 @Component({
   selector: 'app-game-countdown',
@@ -13,7 +13,7 @@ export class GameCountdownComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sharedService.sharedLevel.subscribe(level => this.seconds = level);
+    this.sharedService.sharedLevel$.subscribe(level => this.seconds = level);
   }
 
 }

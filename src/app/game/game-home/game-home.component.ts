@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {SharedStateService} from '../../services/sharedState.service';
-import { Animations } from '../../../animations/aninations';
+import {SharedStateService} from '../../services/shared-state.service';
+import { Animations } from '../game-animations/aninations';
 
 @Component({
   selector: 'app-game-home',
@@ -17,9 +17,9 @@ export class GameHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sharedService.sharedName.subscribe(name => this.name = name);
-    this.sharedService.sharedLevel.subscribe(level => this.seconds = level);
-    this.sharedService.sharedClicks.subscribe(clicks => this.clicks = clicks);
+    this.sharedService.sharedName$.subscribe(name => this.name = name);
+    this.sharedService.sharedLevel$.subscribe(level => this.seconds = level);
+    this.sharedService.sharedClicks$.subscribe(clicks => this.clicks = clicks);
   }
 
 }

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+import {IScores} from '../iscores';
 
 @Injectable({
   providedIn: 'root'
@@ -7,34 +8,36 @@ import {BehaviorSubject} from 'rxjs';
 export class ScoresService {
 
   private highscores = new BehaviorSubject([]);
-  sharedHighscores = this.highscores.asObservable();
+  EASY = 'easy';
+  NORMAL = 'normal';
+  HARD = 'hard';
 
   constructor() {
   }
 
-  getHighscores(highscore) {
+  setHighscores(highscore: IScores[]): void {
     this.highscores.next(highscore);
   }
 
-  getEasyScores() {
-    return JSON.parse(localStorage.getItem('easy'));
+  getEasyScores(): IScores[] {
+    return JSON.parse(localStorage.getItem(this.EASY));
   }
 
-  getNormalScores() {
-    return JSON.parse(localStorage.getItem('normal'));
+  getNormalScores(): IScores[] {
+    return JSON.parse(localStorage.getItem(this.NORMAL));
   }
 
-  getHardScores() {
-    return JSON.parse(localStorage.getItem('hard'));
+  getHardScores(): IScores[] {
+    return JSON.parse(localStorage.getItem(this.HARD));
   }
 
 
-  getScores(lvl) {
-    if (lvl === 'easy' && localStorage.getItem('easy')) {
+  getScores(lvl): IScores[] {
+    if (lvl === this.EASY && localStorage.getItem(this.EASY)) {
       return this.getEasyScores();
-    } else if (lvl === 'normal' && localStorage.getItem('normal')) {
+    } else if (lvl === this.NORMAL && localStorage.getItem(this.NORMAL)) {
       return this.getNormalScores();
-    } else if (lvl === 'hard' && localStorage.getItem('hard')) {
+    } else if (lvl === this.HARD && localStorage.getItem(this.HARD)) {
       return this.getHardScores();
     } else {
       return [];
@@ -45,18 +48,17 @@ export class ScoresService {
     clicks: number,
     highscore: number,
     name: string,
-    arr: any[],
+    arr: IScores[],
     lvl: string,
-  ) {
+  ): void {
     if (clicks > highscore) {
-      arr.sort((a, b) => a.highscore - b.highscore);
       const i = arr.indexOf(
         arr.find((obj) => Object.values(obj).includes(name))
       );
       i === -1
         ? arr.push({name, highscore: clicks})
         : (arr[i] = {name, highscore: clicks});
-      localStorage.setItem(lvl, JSON.stringify(arr));
+      localStorage.setItem(lvl, JSON.stringify(arr.sort((a, b) => b.highscore - a.highscore)));
     }
   }
 }

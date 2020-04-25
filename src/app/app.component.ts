@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {SharedStateService} from './services/sharedState.service';
+import {SharedStateService} from './services/shared-state.service';
 import {Router} from '@angular/router';
 import {ScoresService} from './services/scores.service';
+import {IScores} from './iscores';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import {ScoresService} from './services/scores.service';
 export class AppComponent implements OnInit {
   url: string;
   name: string;
-  scores = [];
+  scores: IScores[] = [];
   clicks: number;
   highscore = 0;
   seconds: number;
@@ -24,31 +25,31 @@ export class AppComponent implements OnInit {
   ) {
   }
 
-  lvl() {
+  lvl(): string {
     if (this.seconds === this.sharedService.DEFAULT_GAME_START) {
-      return 'easy';
+      return this.scoresService.EASY;
     }
     if (this.seconds > this.sharedService.DEFAULT_GAME_START
       &&
       this.seconds <= this.sharedService.NORMAL_GAME_START) {
-      return 'normal';
+      return this.scoresService.NORMAL;
     }
     if (this.seconds > this.sharedService.NORMAL_GAME_START
       &&
       this.seconds <= this.sharedService.HARD_GAME_START) {
-      return 'hard';
+      return this.scoresService.HARD;
     }
   }
 
   ngOnInit() {
-    this.sharedService.sharedName.subscribe(name => this.name = name);
-    this.sharedService.sharedLevel.subscribe(level => this.seconds = level);
-    this.sharedService.sharedClicks.subscribe(clicks => this.clicks = clicks);
-    this.sharedService.sharedUrl.subscribe(url => this.url = url);
+    this.sharedService.sharedName$.subscribe(name => this.name = name);
+    this.sharedService.sharedLevel$.subscribe(level => this.seconds = level);
+    this.sharedService.sharedClicks$.subscribe(clicks => this.clicks = clicks);
+    this.sharedService.sharedUrl$.subscribe(url => this.url = url);
   }
 
 
-  start(url) {
+  start(url): void {
     if (this.name) {
       this.router.navigateByUrl(url).then((e) => {
         e ? console.log('changed route') : console.log('failed to change route');
@@ -56,8 +57,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  mainTitle() {
-    if (this.router.url === '/game') {
+  mainTitle(): string {
+    if (this.router.url === this.sharedService.URL_GAME) {
       if (this.clicks > 0 && this.seconds > this.sharedService.STOP_CLICKS_COUNT) {
         return 'Click It, Baby!!!';
       } else if (this.clicks > 0 && this.seconds <= this.sharedService.STOP_CLICKS_COUNT) {
@@ -74,8 +75,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  buttonValue() {
-    if (this.router.url === '/game') {
+  buttonValue(): string {
+    if (this.router.url === this.sharedService.URL_GAME) {
       if (this.seconds <= this.sharedService.END_GAME && this.seconds > this.sharedService.STOP_COUNTDOWN) {
         return 'The End';
       } else if (this.seconds === this.sharedService.STOP_COUNTDOWN) {
@@ -88,21 +89,16 @@ export class AppComponent implements OnInit {
     }
   }
 
-  countdown() {
+  countdown(): void {
     const lvl = this.lvl();
     this.scores = this.scoresService.getScores(lvl);
-    console.log(this.scores);
-    this.sharedService.getClicks(1);
+    this.sharedService.setClicks(1);
     this.interval = setInterval(() => {
       this.seconds--;
-      this.sharedService.getLevel(this.seconds);
+      this.sharedService.setLevel(this.seconds);
       if (this.seconds === this.sharedService.STOP_COUNTDOWN) {
         clearInterval(this.interval);
         this.interval = undefined;
-        console.log(this.highscore);
-        console.log(this.clicks);
-        console.log(this.name);
-        console.log(this.scores);
         this.scoresService.recordPlayersHighscore(
           this.clicks,
           this.highscore,
@@ -110,25 +106,24 @@ export class AppComponent implements OnInit {
           this.scores,
           lvl
         );
-        this.scoresService.getHighscores(this.scoresService.getScores(lvl));
-        console.log(this.scores);
+        this.scoresService.setHighscores(this.scoresService.getScores(lvl));
       }
     }, 1000);
   }
 
-  countClicks() {
+  countClicks(): void {
     this.clicks++;
-    this.sharedService.getClicks(this.clicks);
+    this.sharedService.setClicks(this.clicks);
   }
 
-  playAgain() {
+  playAgain(): void {
     this.highscore = this.clicks;
-    this.sharedService.getLevel(this.sharedService.DEFAULT_GAME_START);
-    this.sharedService.getClicks(0);
+    this.sharedService.setLevel(this.sharedService.DEFAULT_GAME_START);
+    this.sharedService.setClicks(0);
   }
 
-  clickIt() {
-    if (this.router.url === '/game') {
+  clickIt(): void {
+    if (this.router.url === this.sharedService.URL_GAME) {
       if (!this.interval && this.seconds > this.sharedService.STOP_COUNTDOWN) {
         this.countdown();
       }
@@ -139,7 +134,7 @@ export class AppComponent implements OnInit {
         this.playAgain();
       }
     } else {
-      this.start('game');
+      this.start(this.sharedService.URL_GAME);
     }
   }
 

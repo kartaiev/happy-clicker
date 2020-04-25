@@ -11,36 +11,37 @@ export class SharedStateService {
   DEFAULT_GAME_START = 10;
   NORMAL_GAME_START = 20;
   HARD_GAME_START = 30;
+  URL_HOME = '/';
+  URL_GAME = '/game';
 
   private name = new BehaviorSubject('');
-  sharedName = this.name.asObservable();
+  sharedName$ = this.name.asObservable();
 
   private level = new BehaviorSubject(10);
-  sharedLevel = this.level.asObservable();
+  sharedLevel$ = this.level.asObservable();
 
   private clicks = new BehaviorSubject(0);
-  sharedClicks = this.clicks.asObservable();
+  sharedClicks$ = this.clicks.asObservable();
 
   private url = new BehaviorSubject('');
-  sharedUrl = this.url.asObservable();
+  sharedUrl$ = this.url.asObservable();
 
   constructor() {
   }
 
-  getName(name: string) {
+  setName(name: string): void {
     this.name.next(name);
   }
 
-  getLevel(level: number) {
+  setLevel(level: number): void {
     this.level.next(level);
   }
 
-  getClicks(clicks: number) {
+  setClicks(clicks: number): void {
     this.clicks.next(clicks);
   }
 
-  getUrl(url: string) {
+  setUrl(url: string): void {
     this.url.next(url);
   }
-
 }

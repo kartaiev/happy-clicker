@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SharedStateService} from '../../services/sharedState.service';
+import {SharedStateService} from '../../services/shared-state.service';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +13,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sharedService.sharedName.subscribe(name => this.name = name);
+    this.sharedService.sharedName$.subscribe(name => this.name = name);
   }
 
   getName(name) {
-    this.sharedService.getName(name);
+    this.sharedService.setName(name);
     console.log(this.name);
   }
 }

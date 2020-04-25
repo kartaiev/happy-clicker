@@ -8,9 +8,9 @@ import {
 
 export const Animations = {
   Enter: trigger('Enter', [
-    state('appear', style({ opacity: 1, transform: 'scale(1)' })),
+    state('appear', style({opacity: 1, transform: 'scale(1)'})),
     transition(':enter', [
-      style({ opacity: 0, transform: 'scale(0)' }),
+      style({opacity: 0, transform: 'scale(0)'}),
       animate('0.5s 1s ease-in'),
     ]),
   ]),

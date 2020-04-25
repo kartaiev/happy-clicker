@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SharedStateService} from '../services/sharedState.service';
+import {SharedStateService} from '../services/shared-state.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -18,11 +18,11 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sharedService.sharedName.subscribe(name => this.name = name);
+    this.sharedService.sharedName$.subscribe(name => this.name = name);
   }
 
   getUrl(url) {
-    this.sharedService.getUrl(url);
+    this.sharedService.setUrl(url);
     this.router.navigateByUrl(url).then(e => {
       e ? console.log('changed route') : console.log('failed to change route');
     });
@@ -30,11 +30,11 @@ export class NavbarComponent implements OnInit {
   }
 
   resetUrl(url) {
-    this.sharedService.getUrl('');
+    this.sharedService.setUrl('');
     this.router.navigateByUrl(url).then(e => {
       e ? console.log('changed route') : console.log('failed to change route');
     });
-    this.sharedService.getName('');
+    this.sharedService.setName('');
     this.isHighscore = false;
   }
 
@@ -47,10 +47,10 @@ export class NavbarComponent implements OnInit {
   }
 
   changePlayer(url) {
-    this.sharedService.getName('');
-    this.sharedService.getLevel(this.sharedService.DEFAULT_GAME_START);
-    this.sharedService.getClicks(0);
-    this.sharedService.getUrl('/');
+    this.sharedService.setName('');
+    this.sharedService.setLevel(this.sharedService.DEFAULT_GAME_START);
+    this.sharedService.setClicks(0);
+    this.sharedService.setUrl('/');
     this.router.navigateByUrl(url).then(e => {
       e ? console.log('changed route') : console.log('failed to change route');
     });
