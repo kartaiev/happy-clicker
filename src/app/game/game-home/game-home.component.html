@@ -1,12 +1,12 @@
-<app-game-level *ngIf="clicks === 0"></app-game-level>
+<app-game-level *ngIf="clicks === end"></app-game-level>
 <app-game-countdown
-  *ngIf="clicks > 0
+  *ngIf="clicks > end
   &&
-  seconds > -1"
+  seconds > stopCount"
   [@ShortEnter]="'appear'">
 </app-game-countdown>
 <app-game-score
-  *ngIf="seconds <= -1"
+  *ngIf="seconds <= stopCount"
   [@Enter]="'appear'"
   [clicks]="clicks"
 ></app-game-score>

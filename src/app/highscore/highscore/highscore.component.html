@@ -5,7 +5,7 @@
     <a (click)="setLvlHard()">hard</a>
   </div>
   <h3>{{level}}</h3>
-  <ng-container *ngIf="level === 'easy'">
+  <ng-container *ngIf="level === easy">
     <ul>
       <li *ngFor="let highscore of easyHighscores">
         <span>{{highscore.name}}</span>
@@ -13,7 +13,7 @@
       </li>
     </ul>
   </ng-container>
-  <ng-container *ngIf="level === 'normal'">
+  <ng-container *ngIf="level === normal">
   <ul>
     <li *ngFor="let highscore of normalHighscores">
       <span>{{highscore.name}}</span>
@@ -21,7 +21,7 @@
     </li>
   </ul>
   </ng-container>
-  <ng-container *ngIf="level === 'hard'">
+  <ng-container *ngIf="level === hard">
   <ul>
     <li *ngFor="let highscore of hardHighscores">
       <span>{{highscore.name}}</span>

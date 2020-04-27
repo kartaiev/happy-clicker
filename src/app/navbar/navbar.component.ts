@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SharedStateService} from '../services/shared-state.service';
 import {Router} from '@angular/router';
+import {LevelValues, URL} from '../dictionary';
 
 @Component({
   selector: 'app-navbar',
@@ -21,7 +22,7 @@ export class NavbarComponent implements OnInit {
     this.sharedService.sharedName$.subscribe(name => this.name = name);
   }
 
-  getUrl(url) {
+  setUrl(url) {
     this.sharedService.setUrl(url);
     this.router.navigateByUrl(url).then(e => {
       e ? console.log('changed route') : console.log('failed to change route');
@@ -30,7 +31,7 @@ export class NavbarComponent implements OnInit {
   }
 
   resetUrl(url) {
-    this.sharedService.setUrl('');
+    this.sharedService.setUrl(URL.HOME);
     this.router.navigateByUrl(url).then(e => {
       e ? console.log('changed route') : console.log('failed to change route');
     });
@@ -39,7 +40,7 @@ export class NavbarComponent implements OnInit {
   }
 
   clickLink() {
-    this.isHighscore ? this.resetUrl(this.name ? '/game' : '') : this.getUrl('/highscore');
+    this.isHighscore ? this.resetUrl(this.name ? URL.GAME  : URL.HOME) : this.setUrl(URL.HIGH_SCORE);
   }
 
   linkName() {
@@ -48,9 +49,9 @@ export class NavbarComponent implements OnInit {
 
   changePlayer(url) {
     this.sharedService.setName('');
-    this.sharedService.setLevel(this.sharedService.DEFAULT_GAME_START);
+    this.sharedService.setLevel(LevelValues.EASY_VAL);
     this.sharedService.setClicks(0);
-    this.sharedService.setUrl('/');
+    this.sharedService.setUrl(URL.HOME);
     this.router.navigateByUrl(url).then(e => {
       e ? console.log('changed route') : console.log('failed to change route');
     });

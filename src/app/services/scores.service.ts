@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {IScores} from '../iscores';
+import {Levels} from '../dictionary';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,7 @@ import {IScores} from '../iscores';
 export class ScoresService {
 
   private highscores = new BehaviorSubject([]);
-  EASY = 'easy';
-  NORMAL = 'normal';
-  HARD = 'hard';
+
 
   constructor() {
   }
@@ -20,24 +19,24 @@ export class ScoresService {
   }
 
   getEasyScores(): IScores[] {
-    return JSON.parse(localStorage.getItem(this.EASY));
+    return JSON.parse(localStorage.getItem(Levels.EASY));
   }
 
   getNormalScores(): IScores[] {
-    return JSON.parse(localStorage.getItem(this.NORMAL));
+    return JSON.parse(localStorage.getItem(Levels.NORMAL));
   }
 
   getHardScores(): IScores[] {
-    return JSON.parse(localStorage.getItem(this.HARD));
+    return JSON.parse(localStorage.getItem(Levels.HARD));
   }
 
 
   getScores(lvl): IScores[] {
-    if (lvl === this.EASY && localStorage.getItem(this.EASY)) {
+    if (lvl === Levels.EASY && localStorage.getItem(Levels.EASY)) {
       return this.getEasyScores();
-    } else if (lvl === this.NORMAL && localStorage.getItem(this.NORMAL)) {
+    } else if (lvl === Levels.NORMAL && localStorage.getItem(Levels.NORMAL)) {
       return this.getNormalScores();
-    } else if (lvl === this.HARD && localStorage.getItem(this.HARD)) {
+    } else if (lvl === Levels.HARD && localStorage.getItem(Levels.HARD)) {
       return this.getHardScores();
     } else {
       return [];

@@ -8,9 +8,9 @@
     <button
       *ngIf="url !== '/highscore'"
       (click)="clickIt()"
-      [disabled]="seconds <= 0
+      [disabled]="seconds <= end
       &&
-      seconds > -5"
+      seconds > stopCountdown"
     >
 
       {{buttonValue()}}

@@ -3,6 +3,7 @@ import {SharedStateService} from './services/shared-state.service';
 import {Router} from '@angular/router';
 import {ScoresService} from './services/scores.service';
 import {IScores} from './iscores';
+import {GameNums, URL, Levels, LevelValues} from './dictionary';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,8 @@ export class AppComponent implements OnInit {
   highscore = 0;
   seconds: number;
   interval: number;
+  public end: GameNums.END_GAME;
+  public stopCountdown: GameNums.STOP_COUNTDOWN;
 
   constructor(
     private sharedService: SharedStateService,
@@ -26,18 +29,18 @@ export class AppComponent implements OnInit {
   }
 
   lvl(): string {
-    if (this.seconds === this.sharedService.DEFAULT_GAME_START) {
-      return this.scoresService.EASY;
+    if (this.seconds === LevelValues.EASY_VAL) {
+      return Levels.EASY;
     }
-    if (this.seconds > this.sharedService.DEFAULT_GAME_START
+    if (this.seconds > LevelValues.EASY_VAL
       &&
-      this.seconds <= this.sharedService.NORMAL_GAME_START) {
-      return this.scoresService.NORMAL;
+      this.seconds <= LevelValues.NORMAL_VAL) {
+      return Levels.NORMAL;
     }
-    if (this.seconds > this.sharedService.NORMAL_GAME_START
+    if (this.seconds > LevelValues.NORMAL_VAL
       &&
-      this.seconds <= this.sharedService.HARD_GAME_START) {
-      return this.scoresService.HARD;
+      this.seconds <= LevelValues.HARD_VAL) {
+      return Levels.HARD;
     }
   }
 
@@ -58,10 +61,10 @@ export class AppComponent implements OnInit {
   }
 
   mainTitle(): string {
-    if (this.router.url === this.sharedService.URL_GAME) {
-      if (this.clicks > 0 && this.seconds > this.sharedService.STOP_CLICKS_COUNT) {
+    if (this.router.url === URL.GAME) {
+      if (this.clicks > 0 && this.seconds > GameNums.STOP_CLICKS_COUNT) {
         return 'Click It, Baby!!!';
-      } else if (this.clicks > 0 && this.seconds <= this.sharedService.STOP_CLICKS_COUNT) {
+      } else if (this.clicks > 0 && this.seconds <= GameNums.STOP_CLICKS_COUNT) {
         if (this.clicks > this.highscore) {
           return 'Your New HIGHSCORE IS...';
         } else {
@@ -76,10 +79,10 @@ export class AppComponent implements OnInit {
   }
 
   buttonValue(): string {
-    if (this.router.url === this.sharedService.URL_GAME) {
-      if (this.seconds <= this.sharedService.END_GAME && this.seconds > this.sharedService.STOP_COUNTDOWN) {
+    if (this.router.url === URL.GAME) {
+      if (this.seconds <= GameNums.END_GAME && this.seconds > GameNums.STOP_COUNTDOWN) {
         return 'The End';
-      } else if (this.seconds === this.sharedService.STOP_COUNTDOWN) {
+      } else if (this.seconds === GameNums.STOP_COUNTDOWN) {
         return 'Play Again?';
       } else {
         return 'Click';
@@ -96,7 +99,7 @@ export class AppComponent implements OnInit {
     this.interval = setInterval(() => {
       this.seconds--;
       this.sharedService.setLevel(this.seconds);
-      if (this.seconds === this.sharedService.STOP_COUNTDOWN) {
+      if (this.seconds === GameNums.STOP_COUNTDOWN) {
         clearInterval(this.interval);
         this.interval = undefined;
         this.scoresService.recordPlayersHighscore(
@@ -118,23 +121,23 @@ export class AppComponent implements OnInit {
 
   playAgain(): void {
     this.highscore = this.clicks;
-    this.sharedService.setLevel(this.sharedService.DEFAULT_GAME_START);
+    this.sharedService.setLevel(LevelValues.EASY_VAL);
     this.sharedService.setClicks(0);
   }
 
   clickIt(): void {
-    if (this.router.url === this.sharedService.URL_GAME) {
-      if (!this.interval && this.seconds > this.sharedService.STOP_COUNTDOWN) {
+    if (this.router.url === URL.GAME) {
+      if (!this.interval && this.seconds > GameNums.STOP_COUNTDOWN) {
         this.countdown();
       }
-      if (this.interval && this.seconds > this.sharedService.STOP_CLICKS_COUNT) {
+      if (this.interval && this.seconds > GameNums.STOP_CLICKS_COUNT) {
         this.countClicks();
       }
-      if (!this.interval && this.seconds === this.sharedService.STOP_COUNTDOWN) {
+      if (!this.interval && this.seconds === GameNums.STOP_COUNTDOWN) {
         this.playAgain();
       }
     } else {
-      this.start(this.sharedService.URL_GAME);
+      this.start(URL.GAME);
     }
   }
 
